@@ -27,13 +27,15 @@ public class KlasschatSenderAndReceiver extends JFrame{
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        sendNetworkSetup(getName() + ": CONNECTED");
+
         disconnect.addActionListener(e -> {
-            sendNetworkSetup("DISCONNECTED");
+            sendNetworkSetup(getName() + ": DISCONNECTED");
             System.exit(0);
         });
 
         textingarea.addActionListener(e -> {
-            sendNetworkSetup(textingarea.getText());
+            sendNetworkSetup(getName() + ": " + textingarea.getText());
             textingarea.setText("");
         });
 
@@ -74,7 +76,7 @@ public class KlasschatSenderAndReceiver extends JFrame{
                 DatagramPacket dp = new DatagramPacket(getByte,0,getByte.length);
                 msocket.receive(dp);
                 String s = new String(dp.getData(),0,dp.getLength());
-                displayarea.append(getName() + ": " + s + "\n");
+                displayarea.append(s + "\n");
             }
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
